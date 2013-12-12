@@ -8,7 +8,7 @@ Salak = (function() {
 	init: function() {
 	    console.log('new salak');
 
-	    this.paper = new Raphael(0,0,1000,1000);
+	    this.paper = new Raphael(0, 0, window.screen.width, window.screen.height);
 
 	    this.salaks = [];
 	    
@@ -35,28 +35,27 @@ Snake = (function() {
             this.paper = paper;
 
             this.colour = this.randColor();
+            this.opacity = 0.5;
 
-            //this.createSectionWide(this.colour, 80);
+            this.createSectionWide(this.colour, 80);
             this.createSectionNarrow(this.colour, 80);
-            this.createSectionNarrow(this.colour, 80);
-            //this.createSectionWide(this.colour, 80);
-            
+            this.createSectionNarrow(this.colour, 80);            
 
             return this;
         },
 
         getPosition: function(inc, x, y) {
-            var x = this.lastOptions ? this.lastOptions.x3 : Math.floor(Math.random() * 800);
-            var y = this.lastOptions ? this.lastOptions.y3 : Math.floor(Math.random() * 800);
+            var x = this.lastOptions ? this.lastOptions.x3 : Math.floor(Math.random() * window.screen.width);
+            var y = this.lastOptions ? this.lastOptions.y3 : Math.floor(Math.random() * window.screen.height);
             var options = [
                   {x1: x, y1: y, x2: x,       y2: y + inc, x3: x + inc, y3: y + inc},
                   {x1: x, y1: y, x2: x + inc, y2: y,       x3: x + inc, y3: y + inc},
                   {x1: x, y1: y, x2: x + inc, y2: y      , x3: x + inc, y3: y - inc},
-                  {x1: x, y1: y, x2: x      , y2: y + inc, x3: x + inc, y3: y - inc},
+                  {x1: x, y1: y, x2: x      , y2: y - inc, x3: x + inc, y3: y - inc},
                   {x1: x, y1: y, x2: x,       y2: y - inc, x3: x - inc, y3: y - inc},
                   {x1: x, y1: y, x2: x - inc, y2: y      , x3: x - inc, y3: y - inc},
                   {x1: x, y1: y, x2: x - inc, y2: y,       x3: x - inc, y3: y + inc},
-                  {x1: x, y1: y, x2: x,       y2: y - inc, x3: x - inc, y3: y + inc},
+                  {x1: x, y1: y, x2: x,       y2: y + inc, x3: x - inc, y3: y + inc},
                 ]
               , chosen = /*this.lastChosen ? (Math.floor(Math.random()) ? this.lastChosen + 1 : this.lastChosen - 1) :*/ Math.floor(Math.random() * options.length);
 
@@ -88,19 +87,28 @@ Snake = (function() {
             var x1 = positions.x1, y1 = positions.y1
               , x2 = positions.x2, y2 = positions.y2
               , x3 = positions.x3, y3 = positions.y3;
-
+            var line, circle;
             this.paper.circle(x1,y1,size)
                 .attr("fill", colour)
-                .attr("stroke-width", 0);
-            this.paper.circle(x3, y3, size)
+                .attr("stroke-width", 0)
+                .attr("fill-opacity", this.opacity);
+            circle = this.paper.circle(x1, y1, size)
                 .attr("fill", colour)
-                .attr("stroke-width", 0);
-            this.paper.path("M" + x1 + "," + y1 + 
-                            "C" + x1 + "," + y1 + 
-                            "," + x2 + "," + y2 + 
-                            "," + x3 + "," + y3)
+                .attr("stroke-width", 0)
+                .attr("fill-opacity", this.opacity);
+            line = this.paper.path("M" + x1 + "," + y1 + 
+                                   "C" + x1 + "," + y1 + 
+                                   "," + x1 + "," + y1 + 
+                                   "," + x1 + "," + y1)
                 .attr("stroke", colour)
-                .attr("stroke-width", size * 2);
+                .attr("stroke-width", size * 2)
+                .attr("stroke-opacity", this.opacity);
+
+            line.animate({path: "M" + x1 + "," + y1 + 
+                         "C" + x1 + "," + y1 + 
+                         "," + x2 + "," + y2 + 
+                         "," + x3 + "," + y3}, 1000);
+            circle.animate({transform: "T" + (x3 - x1) + "," + (y3 - y1)}, 1000);
 
             return this; 
             
@@ -121,5 +129,10 @@ Snake = (function() {
     var s = new Salak();
     
     s.add();
+    s.add();
+    s.add();
+    s.add();
+
+    
 
 }());
