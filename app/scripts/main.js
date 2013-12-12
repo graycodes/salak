@@ -8,19 +8,38 @@ Salak = (function() {
 	init: function() {
 	    console.log('new salak');
 
-	    this.paper = new Raphael(0, 0, window.screen.width, window.screen.height);
+	    this.paper = new Raphael(0, 0, window.screen.height, window.screen.width);
 
 	    this.salaks = [];
 	    
+//            this.createDots();// OH GOD, THE HUGE MANATEE!
+
+            Salak = this;
+
+            document.onclick = function(event) {
+                Salak.add(event.x, event.y);
+            }
 	},
 
-	add: function() {
-	    var addedSalak = new Snake(this.paper);
+	add: function(x, y) {
+	    var addedSalak = new Snake(this.paper, x, y);
 
             this.salaks.push(addedSalak);
            
             return addedSalak;
-	}
+	},
+
+        createDots: function() {
+            var x, y;
+            for( x = 0; x < window.screen.width; x+=5) {
+                for ( y = 0; y < window.screen.height; y+=5) {
+                    this.paper.circle(x, y, 1)
+                        .attr("stroke-width", 0)
+                        .attr("fill", "#797e89")
+                        .attr("fill-opacity", 0.5);
+                }
+            }
+        }
     });
 
 }());
@@ -29,22 +48,29 @@ Snake = (function() {
     'use strict';
     
     return Class.extend({
-        init: function(paper) {
+        init: function(paper, x, y) {
             console.log('  new snake');
 
             this.paper = paper;
 
             this.colour = this.randColor();
-            this.opacity = 0.5;
+            this.opacity = 0.99;
 
-            this.createSectionWide(this.colour, 80);
+            if (x && y) {
+                this.lastOptions = {
+                    x3: x,
+                    y3: y
+                }
+            }
+
+            this.createSectionWide(this.colour, 80);// TODO: Randomise this
             this.createSectionNarrow(this.colour, 80);
             this.createSectionNarrow(this.colour, 80);            
 
             return this;
         },
 
-        getPosition: function(inc, x, y) {
+        getPosition: function(inc) {
             var x = this.lastOptions ? this.lastOptions.x3 : Math.floor(Math.random() * window.screen.width);
             var y = this.lastOptions ? this.lastOptions.y3 : Math.floor(Math.random() * window.screen.height);
             var options = [
@@ -60,7 +86,6 @@ Snake = (function() {
               , chosen = /*this.lastChosen ? (Math.floor(Math.random()) ? this.lastChosen + 1 : this.lastChosen - 1) :*/ Math.floor(Math.random() * options.length);
 
             chosen = chosen == 4 ? 0 : chosen;
-            console.log(chosen);
             this.lastChosen = chosen;
             this.lastOptions = options[chosen];
 
@@ -87,28 +112,31 @@ Snake = (function() {
             var x1 = positions.x1, y1 = positions.y1
               , x2 = positions.x2, y2 = positions.y2
               , x3 = positions.x3, y3 = positions.y3;
-            var line, circle;
-            this.paper.circle(x1,y1,size)
+            var line, circle1, circle2;
+            circle1 = this.paper.circle(x1,y1,size)
                 .attr("fill", colour)
                 .attr("stroke-width", 0)
-                .attr("fill-opacity", this.opacity);
-            circle = this.paper.circle(x1, y1, size)
+                .attr("fill-opacity", this.opacity)
+                .toBack();
+            circle2 = this.paper.circle(x1, y1, size)
                 .attr("fill", colour)
                 .attr("stroke-width", 0)
-                .attr("fill-opacity", this.opacity);
+                .attr("fill-opacity", this.opacity)
+                .toBack();
             line = this.paper.path("M" + x1 + "," + y1 + 
                                    "C" + x1 + "," + y1 + 
                                    "," + x1 + "," + y1 + 
                                    "," + x1 + "," + y1)
                 .attr("stroke", colour)
                 .attr("stroke-width", size * 2)
-                .attr("stroke-opacity", this.opacity);
+                .attr("stroke-opacity", this.opacity)
+                .toBack();
 
             line.animate({path: "M" + x1 + "," + y1 + 
                          "C" + x1 + "," + y1 + 
                          "," + x2 + "," + y2 + 
                          "," + x3 + "," + y3}, 1000);
-            circle.animate({transform: "T" + (x3 - x1) + "," + (y3 - y1)}, 1000);
+            circle2.animate({transform: "T" + (x3 - x1) + "," + (y3 - y1)}, 1000);
 
             return this; 
             
