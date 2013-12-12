@@ -13,6 +13,9 @@ body {
     background-color: #eee;
     border-radius: 6px;
     padding: 60px;
+    position: relative;
+    z-index: 1;
+    opacity: .5;
 }
 
 .hero-unit h1 {

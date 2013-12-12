@@ -40,7 +40,6 @@
 	describe('When adding a snake,', function() {
 	    it('should create a snake', function() {
 		var added = salak.add();
-                //added.should.equal('Raphaël’s object');
                 assert.instanceOf(added, Snake);
 	    });
             
@@ -51,5 +50,10 @@
             });
 
 	});
+    });
+
+    describe('Snake,', function() {
+        
+
     });
 })();
