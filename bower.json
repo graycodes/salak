@@ -2,7 +2,9 @@
   "name": "salak",
   "version": "0.0.0",
   "dependencies": {
-    "jquery": "~1.10.2"
+    "jquery": "~1.10.2",
+    "Class.js": "1.0.0",
+    "raphael": "2.1.2"
   },
   "devDependencies": {}
 }

@@ -5,5 +5,9 @@
     "chai": "~1.8.0",
     "mocha": "~1.14.0"
   },
-  "devDependencies": {}
+    
+"devDependencies": {
+    "Class.js": "1.0.0",
+    "raphael": "2.1.2"
+  }
 }

@@ -61,6 +61,7 @@ module.exports = function (grunt) {
                     base: [
                         '.tmp',
                         'test',
+                        '',
                         '<%= yeoman.app %>'
                     ]
                 }
@@ -102,7 +103,8 @@ module.exports = function (grunt) {
             all: {
                 options: {
                     run: true,
-                    urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
+                    urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html'],
+		    log: true		    
                 }
             }
         },
