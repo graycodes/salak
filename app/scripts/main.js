@@ -71,7 +71,7 @@ Snake = (function() {
             this.incSmall = this.width * 1.05;
             this.incLarge = this.incSmall * 3;
             
-            this.snakeMakers = [this.createS1, this.createS2, this.createS3];
+            this.snakeMakers = [this.createS1, this.createS2, this.createS3/*, this.createS4*/];
 
             this.randomSnake();
 
@@ -119,18 +119,18 @@ Snake = (function() {
         createS1: function() {
             var shapes = [];
             this.lastOptions = undefined;
-            shapes.push(this.createSection(this.getSetPosition(2, this.incSmall, this.getXStart(), this.getYStart()), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(3, this.incSmall), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(1, this.incSmall), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(0, this.incSmall), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(2, this.incSmall), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(3, this.incSmall), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(1, this.incSmall), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(0, this.incSmall), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(2, this.incSmall), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(4, this.incLarge), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(5, this.incSmall), this.colour, this.width));
-            shapes.push(this.createSection(this.getSetPosition(3, this.incSmall), this.colour, this.width));
+            shapes.push(this.createSetSection(2, this.incSmall, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(3, this.incSmall));
+            shapes.push(this.createSetSection(1, this.incSmall));
+            shapes.push(this.createSetSection(0, this.incSmall));
+            shapes.push(this.createSetSection(2, this.incSmall));
+            shapes.push(this.createSetSection(3, this.incSmall));
+            shapes.push(this.createSetSection(1, this.incSmall));
+            shapes.push(this.createSetSection(0, this.incSmall));
+            shapes.push(this.createSetSection(2, this.incSmall));
+            shapes.push(this.createSetSection(4, this.incLarge));
+            shapes.push(this.createSetSection(5, this.incSmall));
+            shapes.push(this.createSetSection(3, this.incSmall));
             
             return shapes;
         },
@@ -161,8 +161,15 @@ Snake = (function() {
             return shapes;
         },
 
+        createS4: function() {
+            return this.paper.image("http://www.deargrumpycat.com/wp-content/uploads/2013/02/Grumpy-Cat1.jpg", this.getXStart(), this.getYStart())
+                .attr("width", 365 / 2)
+                .attr("height", 277 / 2);
+        },
+           
+
         createSetSection: function(num, size, x, y) {
-            return this.createSection(this.getSetPosition(num, size, x, y), this.colour, this.width);
+            return this.createSectionAnimated(this.getSetPosition(num, size, x, y), this.colour, this.width);
         },
 
         getSetPosition: function(num, inc, x, y) {
