@@ -8,8 +8,6 @@ Salak = (function() {
 	init: function() {
 	    console.log('new salak');
 
-	    this.paper = new Raphael(0, 0, document.documentElement.clientWidth, document.documentElement.clientHeight);
-
 	    this.salaks = [];
 	    
 //            this.createDots();// OH GOD, THE HUGE MANATEE!
@@ -22,7 +20,9 @@ Salak = (function() {
 	},
 
 	add: function(x, y) {
-	    var addedSalak = new Snake(this.paper, x, y);
+
+            var paper = new Raphael(0, 0, document.documentElement.clientWidth, document.documentElement.clientHeight)
+	      , addedSalak = new Snake(paper, x, y);
 
             this.salaks.push(addedSalak);
            
@@ -71,7 +71,7 @@ Snake = (function() {
             this.incSmall = this.width * 1.05;
             this.incLarge = this.incSmall * 3;
             
-            this.snakeMakers = [this.createS1, this.createS2, this.createS3/*, this.createS4*/];
+            this.snakeMakers = [this.createS1, this.createS2, this.createS3/*, this.createS4*/, this.createS5, this.createS6, this.createS7, this.createS8, this.createS9, this.createS10, this.createS11, this.createS12, this.createS13, this.createS14, this.createS15, this.createS16, this.createS17];
 
             this.randomSnake();
 
@@ -109,11 +109,11 @@ Snake = (function() {
         },
 
         getYStart: function() {
-            return Math.floor(Math.random() * document.documentElement.clientHeight);
+            return Math.floor(Math.random() * (document.documentElement.clientHeight - 200)) + 50;
         },
 
         getXStart: function() {
-            return Math.floor(Math.random() * document.documentElement.clientWidth);
+            return Math.floor(Math.random() * (document.documentElement.clientWidth - 200)) + 50;
         },
 
         createS1: function() {
@@ -166,10 +166,189 @@ Snake = (function() {
                 .attr("width", 365 / 2)
                 .attr("height", 277 / 2);
         },
-           
+
+        createS5: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(0, this.incSmall, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(2, this.incSmall));
+            shapes.push(this.createSetSection(4, this.incSmall));
+            shapes.push(this.createSetSection(6, this.incSmall));
+
+            return shapes;
+        },
+            
+        createS6: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(0, this.incLarge, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(2, this.incLarge));
+            shapes.push(this.createSetSection(4, this.incSmall));
+            shapes.push(this.createSetSection(6, this.incSmall));
+            shapes.push(this.createSetSection(7, this.incSmall));
+//            shapes.push(this.createSetSection(5, this.incSmall));
+
+            return shapes;
+        },
+
+        createS7: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(0, this.incLarge, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(2, this.incLarge));
+            shapes.push(this.createSetSection(4, this.incSmall));
+            shapes.push(this.createSetSection(6, this.incSmall));
+            shapes.push(this.createSetSection(7, this.incSmall));
+            shapes.push(this.createSetSection(5, this.incSmall));
+            shapes.push(this.createSetSection(4, this.incSmall));
+            shapes.push(this.createSetSection(6, this.incSmall));
+
+            return shapes;
+        },
+
+        createS8: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(0, this.incLarge, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(1, this.incLarge));
+            shapes.push(this.createSetSection(7, this.incSmall));
+            shapes.push(this.createSetSection(5, this.incSmall));
+            shapes.push(this.createSetSection(4, this.incSmall));
+            shapes.push(this.createSetSection(6, this.incSmall));
+
+            return shapes;
+        },
+
+        createS9: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(3, this.incSmall, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(1, this.incSmall));
+            shapes.push(this.createSetSection(0, this.incLarge));
+            shapes.push(this.createSetSection(2, this.incSmall));
+            shapes.push(this.createSetSection(4, this.incSmall));
+
+
+            return shapes;
+        },
+
+        createS10: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(3, this.incSmall, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(1, this.incSmall));
+
+
+            return shapes;
+        },
+
+        createS11: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(3, this.incSmall, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(2, this.incSmall));
+            shapes.push(this.createSetSection(4, this.incSmall));
+
+
+            return shapes;
+        },
+
+
+        createS12: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(3, this.incSmall, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(1, this.incSmall));
+            shapes.push(this.createSetSection(0, this.incSmall));
+            shapes.push(this.createSetSection(2, this.incSmall));
+            shapes.push(this.createSetSection(3, this.incSmall));
+            shapes.push(this.createSetSection(1, this.incSmall));
+            shapes.push(this.createSetSection(0, this.incSmall));
+            shapes.push(this.createSetSection(2, this.incSmall));
+
+
+            return shapes;
+        },
+
+
+        createS13: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(3, this.incLarge, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(1, this.incSmall));
+            shapes.push(this.createSetSection(7, this.incSmall));
+            shapes.push(this.createSetSection(6, this.incSmall));
+
+
+            return shapes;
+        },
+
+        createS14: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(3, this.incLarge, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(1, this.incSmall));
+            shapes.push(this.createSetSection(7, this.incSmall));
+            shapes.push(this.createSetSection(6, this.incSmall));
+            shapes.push(this.createSetSection(7, this.incSmall));
+            shapes.push(this.createSetSection(5, this.incSmall));
+
+
+            return shapes;
+        },
+
+        createS15: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(3, this.incSmall, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(1, this.incSmall));
+            shapes.push(this.createSetSection(7, this.incSmall));
+
+            return shapes;
+        },
+
+        createS16: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(7, this.incSmall, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(5, this.incSmall));
+            shapes.push(this.createSetSection(3, this.incLarge));
+            shapes.push(this.createSetSection(1, this.incLarge));
+            shapes.push(this.createSetSection(0, this.incSmall));
+            shapes.push(this.createSetSection(2, this.incSmall));
+
+            return shapes;
+        },
+
+        createS17: function() {
+            var shapes = [];
+            this.lastOptions = undefined;
+            
+            shapes.push(this.createSetSection(6, this.incSmall, this.getXStart(), this.getYStart()));
+            shapes.push(this.createSetSection(7, this.incSmall));
+            shapes.push(this.createSetSection(5, this.incSmall));
+            shapes.push(this.createSetSection(3, this.incLarge));
+            shapes.push(this.createSetSection(1, this.incLarge));
+            shapes.push(this.createSetSection(0, this.incSmall));
+            shapes.push(this.createSetSection(2, this.incSmall));
+
+            return shapes;
+        },
 
         createSetSection: function(num, size, x, y) {
-            return this.createSectionAnimated(this.getSetPosition(num, size, x, y), this.colour, this.width);
+            return this.createSection(this.getSetPosition(num, size, x, y), this.colour, this.width);
         },
 
         getSetPosition: function(num, inc, x, y) {
@@ -297,7 +476,7 @@ Snake = (function() {
         },
 
         randColor: function() {
-            var colors = ["00b196", "797e89", "3a3f56", "c9cc38", "32baec", "aa519a", "4058a4"]
+            var colors = ["00b196", "797e89", "c9cc38", "32baec", "aa519a", "4058a4"]
               , rand = Math.floor(Math.random() * colors.length);
             return "#" + colors[rand];
         }
@@ -309,12 +488,8 @@ Snake = (function() {
     'use strict';
 
     var s = new Salak();
-    
-    s.add();
-/*    s.add();
-    s.add();
-    s.add();
-*/
-    
+
+    setInterval(function() {s.add.call(s)}, 400);
+    setTimeout(function() {window.location = window.location;}, 6000);
 
 }());
